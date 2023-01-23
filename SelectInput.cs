@@ -45,10 +45,7 @@ namespace Querist
                while (true)
                {
                     var k = Console.ReadKey(true).Key;
-                    if (k == ConsoleKey.Enter)
-                    {
-                         break;
-                    }
+                    if (k == ConsoleKey.Enter) break;
                     else if (k == ConsoleKey.UpArrow)
                     {
                          if (at != 0)
@@ -69,12 +66,14 @@ namespace Querist
                               _addColor(at);
                          }
                     }
-                    else
-                    {
-                         continue;
-                    }
+                    else continue;
                }
-               Console.SetCursorPosition(0, Console.CursorTop + (Options.Count - at));
+               if (Console.CursorTop + (Options.Count - at) < Console.BufferHeight)
+                    Console.SetCursorPosition(0, Console.CursorTop + (Options.Count - at));
+               else
+               {
+                    Console.SetCursorPosition(0, Console.CursorTop + (Options.Count - at - 1));
+               }
                return Options[at];
           }
      }
